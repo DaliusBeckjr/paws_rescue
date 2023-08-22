@@ -1,5 +1,7 @@
 # paws_rescue
 
+[!alt text](./flask_app/static/img/Rescues_pic.png)
+
 ## Description
 video to project: <br/>
 [link to video](https://youtu.be/BtnIjh7Jxy8)
