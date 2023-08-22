@@ -28,3 +28,20 @@ It was using curl to get the bearer key token and I want to find a way around it
 
 ### Future Ideas
 change the UI more make it more diverse and even use a website for inspiration of creating these ideas
+
+## How to run 
+
+### Activate shell
+```sh
+pipenv shell
+```
+
+### Run The Project
+```sh
+python3 server.py
+```
+### Deactivate Shell
+```sh
+deactivate
+```
+
