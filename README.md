@@ -1,6 +1,8 @@
 # paws_rescue
 
-![screenshot](Rescues_pic.png)
+<p align="center">
+    <img src="./flask_app/static/img/Rescues_pic.png" width="350" alt="screenshot of project">
+</p>
 
 ## Description
 video to project: <br/>
