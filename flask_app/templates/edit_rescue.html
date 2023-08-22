@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bootstrap demo</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="mb-3 p-2 d-flex justify-content-between">
+            <h1 class="m-3"></h1>
+            <ul class="nav ">
+                <li class="nav-item m-3">
+                    <a class="nav-link" href="">My Rescues</a>
+                </li>
+                <!-- <li class="nav-item m-3 ">
+                    <a class="nav-link" href="" class="d-flex align-items-center">
+                        <ion-icon name="add-circle-outline"></ion-icon>
+                        New Rescue
+                    </a>
+                </li> -->
+                <li class="nav-item m-3">
+                    <a class="btn btn-outline-primary" href="/users/logout" class="d-flex align-items-center"> 
+                        <ion-icon name="close-circle-outline"></ion-icon>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        
+        <div class="container">
+            <div class="d-flex flex-column mb-3 flex-wrap p-4">
+                {% with messages = get_flashed_messages(category_filter=['rescue']) %}     <!-- declare a variable called messages -->
+                {% if messages %}                            <!-- check if there are any messages -->
+                    {% for message in messages %}            <!-- loop through the messages -->
+                        <p class="text-danger">{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            </div>
+            <h1>Edit New Rescue</h1>
+            <form action="/rescues/update" method="post" class="d-flex justify-content-around">
+                <div class="left-form" class="p-3 mb-5 shadow-lg bg-body-tertiary rounded text-primary bg-body-secondary d-flex flex-md-column justify-content-around align-items-center"
+                style="height: 75%; width: 25%;">
+                    <div class="mb-3">
+                    <label  class="form-label">Name: </label>
+                    <input type="text" name="name" class="form-control" value="{{one_rescue.name}}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Type of animal:</label>
+                    <input type="text" name="type" class="form-control" value="{{one_rescue.type}}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Breed of animal:</label>
+                    <input type="text" name="breed" class="form-control" value="{{one_rescue.breed}}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Age</label>
+                    <input type="number" name="age" class="form-control" value="{{one_rescue.age}}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Description:</label>
+                    <textarea class="form-control"  rows="5" name="description"> {{one_rescue.description}}</textarea>
+                </div>
+            </div>
+                <div class="right-form">
+                    <div class="mb-5">
+                        <label class="form-label">Address:</label>
+                        <input type="text" name="location" class="form-control" value="{{one_rescue.location}}">
+                    </div>
+                    <div class="mb-3">
+                        <p class="mb-3">Animal is Male or Female?</p>
+                        <div class="d-flex m-3">
+                            <div class="form-check mx-4">
+                                <input class="form-check-input" type="radio" name="gender" value="1" 
+                                {% if one_rescue.gender == 1 %} checked {% endif %}>
+                                <label class="form-check-label"> Male </label>
+                            </div>
+                            <div class="form-check ">
+                                <input class="form-check-input" type="radio" name="gender" value="0"
+                                {% if one_rescue.gender == 0 %} checked {% endif %}>
+                                <label class="form-check-label" > Female </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <p class="mb-3">Animal is spayed/neutered? (Y/N)</p>
+                        <div class="d-flex m-3">
+                            <div class="form-check mx-4">
+                                <input class="form-check-input" type="radio" name="fixed" value="1"
+                                {% if one_rescue.fixed == 1 %} checked {% endif %}>
+                                <label class="form-check-label"> Yes</label>
+                            </div>
+                            <div class="form-check ">
+                                <input class="form-check-input" type="radio" name="fixed" value="0"
+                                {% if one_rescue.fixed == 0 %} checked {% endif %}>
+                                <label class="form-check-label" >No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <p class="mb-3 ">Size of animal? </p>
+                        <div class="d-flex m-3">
+                            <div class="form-check mx-2">
+                                <input class="form-check-input" type="radio" name="size" value="1"
+                                {% if one_rescue.size == 1 %} checked {% endif %}>
+                                <label class="form-check-label"> small</label>
+                            </div>
+                            <div class="form-check mx-2">
+                                <input class="form-check-input" type="radio" name="size" value="0"
+                                {% if one_rescue.size == 0 %} checked {% endif %}>
+                                <label class="form-check-label" >medium</label>
+                            </div>
+                            <div class="form-check mx-2 ">
+                                <input class="form-check-input" type="radio" name="size" value="2"
+                                {% if one_rescue.size == 2 %} checked {% endif %}>
+                                <label class="form-check-label" >Large</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <input type="hidden" name="id" value="{{one_rescue.id}}">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    </body>
+</html>

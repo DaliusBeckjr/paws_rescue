@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>rescues dashboard</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="mb-3 p-2 d-flex justify-content-between">
+            <h1 class="m-3">Welcome {{one_user.first_name.title()}}!</h1>
+            <ul class="nav ">
+                <!-- <li class="nav-item m-3">
+                    <a class="nav-link" href="/users/rescues/{{one_user.id}}">My Rescues</a>
+                </li> -->
+                <li class="nav-item m-3 ">
+                    <a class="nav-link" href="/rescues/new" class="d-flex align-items-center">
+                        <ion-icon name="add-circle-outline"></ion-icon>
+                        New Rescue
+                    </a>
+                </li>
+                <li class="nav-item m-3">
+                    <a class="btn btn-outline-primary" href="/users/logout" class="d-flex align-items-center"> 
+                        <ion-icon name="close-circle-outline"></ion-icon>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+            <div class="container">
+                <h3>list your rescues to find a home</h3>
+                <table class="table">
+                    <thead>
+                        <tr class="table-secondary">
+                            <th scope="col">Name</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Breed</th>
+                            <th scope="col">M/F</th>
+                            <th scope="col">spayed/neutered</th>
+                            <th scope="col">actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for one_rescue in all_rescues %}
+                        <tr>
+                            <td> {{one_rescue.name.title()}} </td>
+                            <td> {{one_rescue.type.title()}} </td>
+                            <td> {{one_rescue.breed.title()}} </td>
+                            <td> {% if one_rescue.gender == 1 %}
+                                Male
+                                {% else %}
+                                Female
+                                {% endif %} </td>
+                            <td> {% if one_rescue.fixed == 1 %}
+                                Yes
+                                {% else %}
+                                No
+                                {% endif %}
+                            </td>
+
+                            <td class="p-3  d-flex justify-content-center align-items-center">
+                                <a href="/rescues/show/{{one_rescue.id}}">View Rescue</a> |
+                                {% if session['login_id'] == one_rescue.user_id %}
+                                <div class="mx-3">
+                                    
+                                    <a href="/rescues/edit/{{one_rescue.id}}">Edit</a> |
+                                </div>
+                                <form action="/rescues/delete" method="post">
+                                    <input type="hidden" name="id" value="{{one_rescue.id}}">
+                                        <button class="btn btn-link">Delete</button>
+                                </form>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+        <!-- icon script tags -->
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    </body>
+</html>

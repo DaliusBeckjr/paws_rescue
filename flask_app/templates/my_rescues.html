@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bootstrap demo</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="mb-3 p-2 d-flex justify-content-between">
+        <h1 class="m-3"> </h1>
+        <ul class="nav ">
+            <li class="nav-item m-3">
+                <a class="nav-link" href="/rescues/dashboard">Dashboard</a>
+            </li>
+            <li class="nav-item m-3">
+                <a class="btn btn-outline-primary" href="/users/logout"> Logout </a>
+            </li>
+        </ul>
+    </div>
+
+<div class="container">
+    <p class="h3">My Rescues</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">name</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for one_rescue in all_rescues %}
+            <tr>
+                <td>{{one_rescue.name}}</td>
+                <td>
+                    <a href="/rescues/edit/{{one_rescue.id}}">Edit</a>
+                    <a href="/rescues/delete" class="btn btn-link">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+  </body>
+</html>
