@@ -35,7 +35,7 @@ change the UI more make it more diverse and even use a website for inspiration o
 
 ## How to run 
 
-### Activate shell
+### Activate Virtual Environment
 ```sh
 pipenv shell
 ```
@@ -49,3 +49,5 @@ python3 server.py
 deactivate
 ```
 
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
