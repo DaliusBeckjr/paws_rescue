@@ -44,7 +44,7 @@ pipenv shell
 ```sh
 python3 server.py
 ```
-### Deactivate Shell
+### Deactivate Virtual Environment
 ```sh
 deactivate
 ```
