@@ -1,7 +1,7 @@
 # paws_rescue
 
 <p align="center">
-    <img src="./flask_app/static/img/Rescues_pic.png" width="650" alt="screenshot of project">
+    <img src="./flask_app/static/img/update_one_rescue.png" width="650" alt="screenshot of project">
 </p>
 
 ## Description
