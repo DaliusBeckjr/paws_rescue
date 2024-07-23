@@ -5,6 +5,7 @@ USE paws_rescue_schema;
 
 DROP TABLE IF EXISTS users;
 
+-- first_name, last_name, email, password, created_at, updated_at
 CREATE TABLE users(
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(255),
@@ -22,12 +23,30 @@ CREATE TABLE rescues(
     name VARCHAR(255),
     description TEXT, 
     breed VARCHAR(255),
-    location VARCHAR(255),
+    address VARCHAR(255),
     age INTEGER,
     gender INTEGER,
     size INTEGER,
     fixed INTEGER,
     type INTEGER,
+    image VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    user_id INT, 
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+
+-- maybe: add a likes feature for each user to like a specific animal
+-- maybe: add a part where we can add images to the specific data
+
+
+-- if we created a table we can always alter it just by saing
+
+-- ALTER TABLE users
+-- ADD birthdate DATE;
+
+-- to add multiple columns we would say
+-- ALTER TABLE users
+-- ADD COLUMN phone_number VARCHAR(15),
+-- ADD COLUMN birthdate DATE;
