@@ -18,7 +18,6 @@ class User:
         self.password = data['password']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
-        self.rescues = []
 
 # create
     @classmethod 
@@ -29,38 +28,6 @@ class User:
             VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s);
         """
         return connectToMySQL(cls.db).query_db(query, data)
-
-# crud method: read
-    # @classmethod
-    # def get_all_users(cls, data):
-    #     query = """ 
-    #         SELECT * FROM users
-    #         JOIN rescues ON rescues.user_id = users.id
-    #         WHERE users.id = %(id)s;
-    #     """
-    #     results = connectToMySQL(cls.db).query_db(query, data)
-        
-    #     one_user = cls( results[0] )
-        
-    #     for row in results:
-    #         rescue_data = {
-    #             'id' : row['rescue.id'],
-    #             'name' : row['name'],
-    #             'description' : row['description'],
-    #             'breed' : row['breed'],
-    #             'location' : row['location'],
-    #             'age' : row['age'],
-    #             'gender' : row['gender'],
-    #             'size' : row['size'],
-    #             'fixed' : row['fixed'],
-    #             'type' : row['type'],
-    #             'created_at' : row['rescue.created_at'],
-    #             'updated_at' : row['rescue.updated_at'],
-    #             'user_id' : row['user_id'],
-    #         }
-    #         one_user.rescues.append( rescue.Rescue(rescue_data) )
-    #         return one_user
-
 
     @classmethod 
     def get_user_by_email(cls, data):
@@ -85,10 +52,6 @@ class User:
         results = connectToMySQL(cls.db).query_db(query, data)
 
         return cls(results[0])
-
-# update
-
-# delete
 
 # validation
     @staticmethod 
