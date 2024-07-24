@@ -40,6 +40,14 @@ CREATE TABLE rescues(
 -- maybe: add a likes feature for each user to like a specific animal
 -- maybe: add a part where we can add images to the specific data
 
+DROP TABLE IF EXISTS likes
+CREATE TABLE likes(
+    user_id INT,
+    rescue_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (rescue_id) REFERENCES rescues(id)
+);
+
 
 -- if we created a table we can always alter it just by saing
 
