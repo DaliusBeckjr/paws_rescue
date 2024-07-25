@@ -1,12 +1,16 @@
 from flask import Flask, session
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 cors = CORS(app)
-
+app.config['UPLOAD_FOLDER'] = os.path.join('static', 'images')
 
 
 # openssl rand -hex 32 =>

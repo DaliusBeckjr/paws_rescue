@@ -29,9 +29,9 @@ CREATE TABLE rescues(
     size INTEGER,
     fixed INTEGER,
     type INTEGER,
-    image VARCHAR(255),
+    image_path VARCHAR(255), -- store file path or url
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     user_id INT, 
     FOREIGN KEY (user_id) REFERENCES users(id)
 );

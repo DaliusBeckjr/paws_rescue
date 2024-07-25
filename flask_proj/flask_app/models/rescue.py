@@ -16,6 +16,7 @@ class Rescue:
         self.size = data['size']
         self.fixed = data['fixed']
         self.type = data['type']
+        self.image_path = data['image_path']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.user_id = data['user_id']
@@ -26,9 +27,9 @@ class Rescue:
     def save_rescue(cls, data):
         query = """ 
             INSERT INTO rescues
-            (name, description, breed, location, age, gender, size, fixed, type, user_id)
+            (name, description, breed, location, age, gender, size, fixed, type, image_path, user_id)
             VALUES (%(name)s,%(description)s,%(breed)s,%(location)s,%(age)s,
-            %(gender)s,%(size)s,%(fixed)s,%(type)s,%(user_id)s);
+            %(gender)s,%(size)s,%(fixed)s,%(type)s,%(image_path)s,%(user_id)s);
         """
         return connectToMySQL(cls.db).query_db(query, data)
 
@@ -86,7 +87,8 @@ class Rescue:
         query = """ UPDATE rescues
             SET name = %(name)s, description = %(description)s, breed = %(breed)s,
             location = %(location)s, age = %(age)s, gender = %(gender)s,
-            size = %(size)s, fixed = %(fixed)s, type = %(type)s
+            size = %(size)s, fixed = %(fixed)s, type = %(type)s, image_path = %(image_path)s
+            
             WHERE id = %(id)s;
         """
         return connectToMySQL(cls.db).query_db(query, data)

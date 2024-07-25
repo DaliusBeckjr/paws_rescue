@@ -1,6 +1,8 @@
 from flask_app.models import user, rescue
-from flask import render_template, session, request, redirect
+from flask import render_template, session, request, redirect, url_for
 from flask_app import app
+from werkzeug.utils import secure_filename
+import os
 
 @app.route('/rescues/dashboard')
 def dashboard():
@@ -20,18 +22,39 @@ def new_rescue():
     return render_template('new_rescue.html')
 
 
-@app.route('/rescues/create', methods = ['POST'])
+
+@app.route('/rescues/create', methods=['POST'])
 def create_rescue():
     if 'login_id' not in session:
         return redirect('/')
+#   retrieve uploaded file from the form
+    file = request.files['image']
+#   Ensures the file name is secure and removes any unsafe letters
+    filename = secure_filename(file.filename)
+#   created the filepath by joining the uploaded folder path with the secure file name
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+#   Save the file to the specified file path on the server.
+    file.save(filepath)
 
-    val_rescue = rescue.Rescue.validate_rescue(request.form)
-
-    if not val_rescue:
+    if not rescue.Rescue.validate_rescue(request.form):
         return redirect('/rescues/new')
 
-    rescue.Rescue.save_rescue(request.form)
-    return redirect ('/rescues/dashboard')
+    data = {
+        'name': request.form['name'],
+        'description': request.form['description'],
+        'breed': request.form['breed'],
+        'address': request.form['address'],
+        'age': request.form['age'],
+        'gender': request.form['gender'],
+        'size': request.form['size'],
+        'fixed': request.form['fixed'],
+        'type': request.form['type'],
+        'image_path': filepath,
+        'user_id': session['login_id'] # Assuming user_id is stored in session
+    }
+
+    rescue.Rescue.save_rescue(data)
+    return redirect('/rescues/dashboard')
 
 
 @app.route('/rescues/edit/<int:id>')
