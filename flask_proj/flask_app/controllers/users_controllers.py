@@ -1,7 +1,8 @@
 from flask_app import app, bcrypt
-from flask import render_template, redirect, session, request
-from flask_app.models import user, rescue
-
+from flask import render_template, redirect, session, request, url_for
+from flask_app.models.user import User
+from flask_app.models.rescue import Rescue
+from flask_app.validations.users_val import validate_login, validate_register
 
 @app.route('/')
 def home():
@@ -11,8 +12,11 @@ def home():
 # when user is registering for a new acc
 @app.route('/users/register', methods = ['POST'])
 def register():
-    if not user.User.validate_register(request.form):
-        return redirect('/')
+
+    if not validate_register(request.form):
+        return redirect(url_for('home'))
+
+#   using bcrypt to hash the newly register users password
     hashed_pw = bcrypt.generate_password_hash(request.form['password'])
     
     data = {
@@ -21,14 +25,17 @@ def register():
         'email' : request.form['email'],
         'password' : hashed_pw
     }
-    one_user_id = user.User.save(data)
+#   this is calling the function from the user model to save user information in the db
+    one_user_id = User.create_user(data)
+
+#   now we are grabbing all the data and logging in the user but also putting the user in session
     session['login_id'] = one_user_id
-    return redirect('/rescues/dashboard')
+    return redirect(url_for('dashboard'))
 
 
 @app.route('/users/login', methods = ['POST'])
 def login():
-    one_user = user.User.validate_login(request.form)
+    one_user = validate_login(request.form)
 
 # if user already exist he is sent back to register
     if not one_user:
@@ -53,6 +60,6 @@ def my_rescue(id):
     user_data = {
         'id' : id
     }
-    one_user = user.User.get_user_by_id(user_data)
-    return render_template('my_rescues.html', all_rescue = rescue.Rescue.get_one_rescue(data), one_user = one_user)
+    one_user = User.get_user_by_id(user_data)
+    return render_template('my_rescues.html', all_rescue = Rescue.get_one_rescue(data), one_user = one_user)
 

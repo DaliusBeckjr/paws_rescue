@@ -1,5 +1,6 @@
 from flask_app import app 
-from flask_app.controllers import users, rescues
+from flask_app.controllers import users_controllers
+from flask_app.controllers import rescues_controllers
 
 
 

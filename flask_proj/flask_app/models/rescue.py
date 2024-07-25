@@ -1,5 +1,5 @@
 from flask_app.config.mysqlconnetcion import connectToMySQL
-from flask_app.models import user
+from flask_app.models.user import User
 from flask import flash
 
 class Rescue:
@@ -24,7 +24,7 @@ class Rescue:
         self.owner = None
 
     @classmethod 
-    def save_rescue(cls, data):
+    def create_rescue(cls, data):
         query = """ 
             INSERT INTO rescues
             (name, description, breed, location, age, gender, size, fixed, type, image_path, user_id)
@@ -56,7 +56,7 @@ class Rescue:
                 'created_at' : row['created_at'],
                 'updated_at' : row['updated_at'],
             }
-            one_rescue.owner = user.User(user_data)
+            one_rescue.owner = User(user_data)
             all_rescues.append(one_rescue)
         return all_rescues
 
@@ -79,7 +79,7 @@ class Rescue:
                 'created_at': results[0]['users.created_at'],
                 'updated_at': results[0]['users.updated_at'],
             }
-        one_rescue.owner = user.User(user_data)
+        one_rescue.owner = User(user_data)
         return one_rescue
 
     @classmethod

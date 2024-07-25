@@ -1,4 +1,5 @@
 from flask import flash
+
 def validate_rescue(data):
     is_valid = True
     

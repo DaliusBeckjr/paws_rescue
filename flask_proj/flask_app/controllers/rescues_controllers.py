@@ -1,4 +1,5 @@
-from flask_app.models import user, rescue
+from flask_app.models.user import User
+from flask_app.models.rescue import Rescue
 from flask import render_template, session, request, redirect, url_for
 from flask_app import app
 from werkzeug.utils import secure_filename
@@ -7,17 +8,17 @@ import os
 @app.route('/rescues/dashboard')
 def dashboard():
     if 'login_id' not in session:
-        return redirect('/')
+        return redirect(url_for('home'))
     data = {
         'id' : session['login_id']
     }
-    return render_template('dashboard.html', all_rescues = rescue.Rescue.get_all_rescues(), one_user = user.User.get_user_by_id(data))
+    return render_template('dashboard.html', all_rescues = Rescue.get_all_rescues(), one_user = User.get_user_by_id(data), title= 'Paws Rescues | dashboard')
 
 
 @app.route('/rescues/new')
 def new_rescue():
     if 'login_id' not in session:
-        return redirect('/')
+        return redirect(url_for('home'))
 
     return render_template('new_rescue.html')
 
@@ -26,7 +27,7 @@ def new_rescue():
 @app.route('/rescues/create', methods=['POST'])
 def create_rescue():
     if 'login_id' not in session:
-        return redirect('/')
+        return redirect(url_for('home'))
 #   retrieve uploaded file from the form
     file = request.files['image']
 #   Ensures the file name is secure and removes any unsafe letters
@@ -36,7 +37,7 @@ def create_rescue():
 #   Save the file to the specified file path on the server.
     file.save(filepath)
 
-    if not rescue.Rescue.validate_rescue(request.form):
+    if not Rescue.validate_rescue(request.form):
         return redirect('/rescues/new')
 
     data = {
@@ -53,7 +54,7 @@ def create_rescue():
         'user_id': session['login_id'] # Assuming user_id is stored in session
     }
 
-    rescue.Rescue.save_rescue(data)
+    Rescue.create_rescue(data)
     return redirect('/rescues/dashboard')
 
 
@@ -65,14 +66,14 @@ def edit_rescues(id):
     data = {
         'id': id
     }
-    return render_template('edit_rescue.html', one_rescue = rescue.Rescue.get_one_rescue(data))
+    return render_template('edit_rescue.html', one_rescue = Rescue.get_one_rescue(data))
 
 
 @app.route('/rescues/update', methods = ['POST'])
 def update_rescues():
     if 'login_id' not in session:
         return redirect('/')
-    val_rescue = rescue.Rescue.validate_rescue(request.form)
+    val_rescue = Rescue.validate_rescue(request.form)
 
     if not val_rescue:
         return redirect(f"/rescues/edit/{request.form['id']}")
