@@ -1,6 +1,9 @@
 from flask import flash
 from flask_app.models.user import User
 from flask_bcrypt import bcrypt
+import re
+EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+
 
 def validate_register(data):
     is_valid = True

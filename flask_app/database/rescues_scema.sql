@@ -11,7 +11,7 @@ CREATE TABLE users(
     first_name VARCHAR(255),
     last_name VARCHAR(255),
     email VARCHAR(255),
-    password VARVHAR(80),
+    password VARCHAR(80),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -33,7 +33,7 @@ CREATE TABLE rescues(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     user_id INT, 
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 
@@ -42,10 +42,11 @@ CREATE TABLE rescues(
 
 DROP TABLE IF EXISTS likes
 CREATE TABLE likes(
+    id INT PRIMARY KEY AUTO_INCREMENT
     user_id INT,
     rescue_id INT,
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (rescue_id) REFERENCES rescues(id)
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (rescue_id) REFERENCES rescues(id) ON DELETE CASCADE
 );
 
 
