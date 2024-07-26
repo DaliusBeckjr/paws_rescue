@@ -10,7 +10,7 @@ def home():
 
 # made to keep the user password a secret in mysql database 
 # when user is registering for a new acc
-@app.route('/api/v1/users/register', methods = ['POST'])
+@app.route('/users/register', methods = ['POST'])
 def register():
 
     if not validate_register(request.form):
@@ -33,7 +33,7 @@ def register():
     return redirect(url_for('dashboard'))
 
 
-@app.route('/api/v1/users/login', methods = ['POST'])
+@app.route('/users/login', methods = ['POST'])
 def login():
     one_user = validate_login(request.form)
 
@@ -46,13 +46,13 @@ def login():
     return redirect(url_for('dashboard'))
 
 # made to log out the user and take them back to the register page
-@app.route('/api/users/logout')
+@app.route('/users/logout')
 def logout():
     session.clear()
     return redirect(url_for('home'))
 
 
-@app.route('/api/v1/users/rescues/<int:id>')
+@app.route('/api/users/rescues/<int:id>')
 def my_rescue(id):
     data = {
         'id' : id
