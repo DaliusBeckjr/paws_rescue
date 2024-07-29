@@ -1,5 +1,7 @@
 from flask_app.config.mysqlconnetcion import connectToMySQL
 
+from flask_app.models.rescue import Rescue
+
 class Like:
     db = 'paws_rescue_schema'
 
@@ -29,8 +31,26 @@ class Like:
 # was thinking what if the user only wanted to see all of their liked animals
     @classmethod
     def get_liked_rescues_by_user(cls, data):
-        ...
+        query = """
+        SELECT * from rescues
+        JOIN likes ON rescues.id = likes.rescue_id
+        WHERE likes.uer_id = &(user_id)s
+        """
+        results = connectToMySQL(cls.db).query_db(query, data)
+        rescues = []
+        for row in results:
+            rescues.append(Rescue(row))
+        return rescues
 
+
+
+# wouldn't we want to check if it is liked 
     @classmethod
     def check_if_liked(cls, data):
-        ...
+        query = """
+        SELECT * FROM likes
+        WHERE user_id = %(user_id)s
+        AND rescue_id = %(rescue_id)s;
+        """
+        result = connectToMySQL(cls.db).query_db(query, data)
+        return len(result) > 0
