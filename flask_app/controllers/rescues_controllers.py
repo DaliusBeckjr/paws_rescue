@@ -13,7 +13,7 @@ def dashboard():
     data = {
         'id' : session['login_id']
     }
-    return render_template('dashboard.html', all_rescues = Rescue.get_all_rescues(), one_user = User.get_user_by_id(data), title= 'Paws Rescues | dashboard')
+    return render_template('dashboard.html', all_rescues = Rescue.get_all_rescues(), one_user = User.get_user_by_id(data))
 
 
 @app.route('/api/v1/rescues/new')

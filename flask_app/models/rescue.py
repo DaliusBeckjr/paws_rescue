@@ -2,7 +2,7 @@ from flask_app.config.mysqlconnetcion import connectToMySQL
 from flask_app.models.user import User
 
 class Rescue:
-    db = "paws_rescues_schema"
+    db = "paws_rescue_schema"
     
     def __init__(self, data):
         self.id = data['id']

@@ -12,8 +12,10 @@ def home():
 # when user is registering for a new acc
 @app.route('/users/register', methods = ['POST'])
 def register():
+    
+    check_reg = User.validate_register(request.form)
 
-    if not validate_register(request.form):
+    if not check_reg:
         return redirect(url_for('home'))
 
 #   using bcrypt to hash the newly register users password

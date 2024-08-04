@@ -1,8 +1,17 @@
 @import "https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css";
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+}
+
+.custom-button {
+  color: plum;
 }
 
 /*# sourceMappingURL=style.css.map */

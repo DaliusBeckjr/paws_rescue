@@ -1,9 +1,12 @@
 from flask_app.config.mysqlconnetcion import connectToMySQL
-
+from flask import flash
+from flask_bcrypt import bcrypt
+import re
+EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 
 class User:
-    db = "users_rescues_schema"
+    db = "paws_rescue_schema"
     
     def __init__(self, data):
         self.id = data['id']
@@ -48,3 +51,43 @@ class User:
 
         return cls(results[0])
 
+
+    @staticmethod 
+    def validate_register(data):
+        is_valid = True
+        one_user = User.get_user_by_email(data)
+
+# if user already exist in the database
+        if one_user:
+            is_valid = False
+            flash('login in, please', 'reg')
+
+
+# validate_first_name ->
+        if len(data['first_name']) == 0:
+            is_valid = False
+            flash('First Name can not be left empty', 'reg')
+# validate_last_name    ->
+        if len(data['last_name']) == 0:
+            is_valid = False
+            flash('Last Name can not be left empty', 'reg')
+# validate_email    ->
+        if len(data['email']) == 0:
+            is_valid = False
+            flash('Email can not be left empty', 'reg')
+        elif not EMAIL_REGEX.match(data['email']):
+            is_valid = False
+            flash('Invalid email format', 'reg')
+# validate_password    ->
+        if len(data['password']) == 0:
+            is_valid = False
+            flash('Password can not be left empty', 'reg')
+# validate_confirm_pw ->
+#         if len(data['confirm_pw']) == 0:
+#             is_valid = False
+#             flash('Confirm Password can not be left empty', 'reg')
+# # match: password
+#         if data['password'] != data['confirm_pw']:
+#             is_valid = False
+#             flash('Passwords do not match')
+        return is_valid
