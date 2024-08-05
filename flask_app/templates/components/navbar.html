@@ -1,0 +1,17 @@
+<nav class="navbar is-top-sticky">
+    <!-- logo/ brand -->
+    <div class="navbar-brand p-4">
+        <a href="{{ url_for('dashboard') }}" class="navbar-item ">
+            <p class="is-size-4 has-text-weight-bold">
+                <span class="has-text-primary">Paws</span> Rescue
+            </p>
+        </a>
+    </div>
+    <div class="navbar-end">
+        <a href="{{ url_for('dashboard') }}" class="navbar-item">
+            Home
+        </a>
+        <a href="{{ url_for('new_rescue') }}" class="navbar-item">Register Rescue</a>
+        <a href="{{ url_for('logout') }}" class="navbar-item"> Logout </a>
+    </div>
+</nav>

@@ -4,22 +4,24 @@
 
 {% block body %}
 
+{% include 'components/navbar.html' %}
+
 <section class="section">
     <div class="container">
-        <p class="is-size-3 has-text-centered has-text-weight-bold">welcome to the dashboard</p>
-
-
-        <div class="card">
-            card
-        </div>
+        <p class="is-size-3
+            has-text-centered 
+            has-text-weight-bold">
+            welcome to the dashboard
+        </p>
 
         {% for rescue in all_rescues %}
-            
+            <p>{{ rescue.name }}</p>
+            <p>{{ rescue.description }}</p>
         {% endfor %}
     </div>
 </section>
 
-
+{% include 'components/footer.html' %}
 
 
 {% endblock %}
