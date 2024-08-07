@@ -11,6 +11,14 @@
        <p class="has-text-weight-bold has-text-centered is-size-3">Register New Rescue</p>
 
         <form action="{{ url_for('create_rescue') }}" method="post" enctype="multipart/form-data">
+
+            {% with messages = get_flashed_messages(category_filter=['rescue']) %}     <!-- declare a variable called messages -->
+                    {% if messages %}                            <!-- check if there are any messages -->
+                        {% for message in messages %}            <!-- loop through the messages -->
+                            <p class="has-text-danger">{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
             <div class="field">
                 <label class="label">Name:</label>
                 <input type="text" class="input" name="name" placeholder="Input Name">
@@ -77,7 +85,7 @@
             <div class="field">
                 <label class="label">Type Of Animal:</label>
                 <div class="select">
-                    <select name="type" >
+                    <select name="type">
                         <option value="dog">Dog</option>
                         <option value="cat">Cat</option>
                         <option value="other">Other</option>
