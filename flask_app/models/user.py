@@ -1,6 +1,6 @@
 from flask_app.config.mysqlconnetcion import connectToMySQL
 from flask import flash
-from flask_bcrypt import bcrypt
+from flask_app import bcrypt
 import re
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
@@ -91,3 +91,18 @@ class User:
 #             is_valid = False
 #             flash('Passwords do not match')
         return is_valid
+
+
+    @staticmethod 
+    def validate_login(data):
+        one_user = User.get_user_by_email(data)
+
+# if user already exist in the database
+        if not one_user:
+            flash('Invalid Credentials', 'login')
+            return False
+
+        if not bcrypt.check_password_hash(one_user.password, data['password']):
+            flash('Invalid Credentials', 'login')
+            return False
+        return one_user

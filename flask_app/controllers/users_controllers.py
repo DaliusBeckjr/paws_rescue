@@ -36,7 +36,7 @@ def register():
 
 @app.route('/users/login', methods = ['POST'])
 def login():
-    one_user = validate_login(request.form)
+    one_user = User.validate_login(request.form)
 
 # if user already exist he is sent back to register
     if not one_user:
