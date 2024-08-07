@@ -123,6 +123,10 @@ class Rescue:
             is_valid = False
             flash('breed can not be empty', 'rescue')
 
+        if len(data['location']) == 0:
+            is_valid = False
+            flash('Address must be provided', 'rescue')
+
         # age validation
         try:
             # strip(): Used to remove any leading or trailing whitespace from inputs.
@@ -140,7 +144,8 @@ class Rescue:
             flash('Gender option must be selected', 'rescue')
 
         # image validation
-        if 'image_path' not in files or files['image_path'].filename == '':
+        file = files.get('image')  # Corrected field name
+        if not file or file.filename == '':
             is_valid = False
             flash('Rescue Image can not be empty', 'rescue')
 

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} {% endblock %}
+{% block title %} dashboard | Paws Rescue {% endblock %}
 
 {% block body %}
 
@@ -14,9 +14,9 @@
             welcome to the dashboard
         </p>
 
-        {% for rescue in all_rescues %}
-            <p>{{ rescue.name }}</p>
-            <p>{{ rescue.description }}</p>
+        {% for one_rescue in all_rescues %}
+            <p>{{ one_rescue.name }}</p>
+            <p>{{ one_rescue.description }}</p>
         {% endfor %}
     </div>
 </section>

@@ -32,36 +32,43 @@ def create_rescue():
     data = request.form
     files = request.files
 
+    # Validate form data and files
     new_rescue = Rescue.validate_rescue(data, files)
     if not new_rescue:
         return redirect(url_for('new_rescue'))
 
-    # file handling..
-    file = files.get('image_path')
+    # Handle file upload
+    file = files.get('image')
+    image_path = None
     if file and file.filename:
-        filename = secure_filename('file.filename')
+        filename = secure_filename(file.filename)  # Correct filename extraction
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(filepath)
         image_path = filepath
 
-
-
-    data = {
+    # Prepare data for database
+    rescue_data = {
         'name': request.form['name'],
         'description': request.form['description'],
         'breed': request.form['breed'],
-        'address': request.form['address'],
+        'location': request.form['location'],
         'age': request.form['age'],
         'gender': request.form['gender'],
         'size': request.form['size'],
         'fixed': request.form['fixed'],
         'type': request.form['type'],
         'image_path': image_path,
-        'user_id': session['login_id'] # Assuming user_id is stored in session
+        'user_id': session['login_id']
     }
+    print(rescue_data)
 
-    Rescue.create_rescue(data)
-    return redirect(url_for('dashbord'))
+        # Insert data into the database
+    result = Rescue.create_rescue(rescue_data)
+    if result:
+        return redirect(url_for('dashboard'))
+    else:
+        return redirect(url_for('new_rescue'))
+
 
 
 @app.route('/api/v1/rescues/edit/<int:id>')
