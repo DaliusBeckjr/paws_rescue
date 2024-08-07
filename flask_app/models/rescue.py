@@ -1,5 +1,6 @@
 from flask_app.config.mysqlconnetcion import connectToMySQL
 from flask_app.models.user import User
+from flask import flash
 
 class Rescue:
     db = "paws_rescue_schema"
@@ -100,3 +101,57 @@ class Rescue:
         return connectToMySQL(cls.db).query_db(query, data)
 
 
+    @staticmethod
+    def validate_rescue(data, files):
+        is_valid = True
+        
+        # name validation
+        if len(data['name']) == 0:
+            is_valid = False
+            flash('Name can not be left empty', 'rescue')
+        elif len(data['name']) < 3:
+            is_valid = False
+            flash('Name must be at least 3 characters or more', 'rescue')
+
+        # description validation => we don't want it to be empty
+        if len(data['description']) == 0:
+            is_valid = False
+            flash('Description can not be left empty', 'rescue')
+
+        # breed validation
+        if len(data['breed']) == 0:
+            is_valid = False
+            flash('breed can not be empty', 'rescue')
+
+        # age validation
+        try:
+            # strip(): Used to remove any leading or trailing whitespace from inputs.
+            age = int(data.get('age', '').strip())
+            if age <= 0:
+                is_valid = False
+                flash('Age must be a positive number', 'rescue')
+        except ValueError:
+            is_valid = False
+            flash('Age must be a valid number', 'rescue')
+
+        # gener validation
+        if 'gender' not in data:
+            is_valid = False
+            flash('Gender option must be selected', 'rescue')
+
+        # image validation
+        if 'image_path' not in files or files['image_path'].filename == '':
+            is_valid = False
+            flash('Rescue Image can not be empty', 'rescue')
+
+        # size validation
+        if 'size' not in data:
+            is_valid = False
+            flash('size option must be selected', 'rescue')
+
+        # fixed validation
+        if 'fixed' not in data:
+            is_valid = False
+            flash('Fixed option must be selected', 'rescue')
+
+        return is_valid

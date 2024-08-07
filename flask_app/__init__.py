@@ -10,7 +10,10 @@ load_dotenv()
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 cors = CORS(app)
-app.config['UPLOAD_FOLDER'] = os.path.join('static', 'images')
+app.config['UPLOAD_FOLDER'] = os.path.join('uploads')
+
+if not os.path.exists(app.config['UPLOAD_FOLDER']):
+    os.makedirs(app.config['UPLOAD_FOLDER'])
 
 
 # openssl rand -hex 32 =>

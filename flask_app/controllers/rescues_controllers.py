@@ -1,6 +1,5 @@
 from flask_app.models.user import User
 from flask_app.models.rescue import Rescue
-from flask_app.validations.rescues_val import validate_rescue
 from flask import render_template, session, request, redirect, url_for
 from flask_app import app
 from werkzeug.utils import secure_filename
@@ -29,17 +28,23 @@ def new_rescue():
 def create_rescue():
     if 'login_id' not in session:
         return redirect(url_for('home'))
-#   retrieve uploaded file from the form
-    file = request.files['image']
-#   Ensures the file name is secure and removes any unsafe letters
-    filename = secure_filename(file.filename)
-#   created the filepath by joining the uploaded folder path with the secure file name
-    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-#   Save the file to the specified file path on the server.
-    file.save(filepath)
+    
+    data = request.form
+    files = request.files
 
-    if not validate_rescue(request.form):
+    new_rescue = Rescue.validate_rescue(data, files)
+    if not new_rescue:
         return redirect(url_for('new_rescue'))
+
+    # file handling..
+    file = files.get('image_path')
+    if file and file.filename:
+        filename = secure_filename('file.filename')
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(filepath)
+        image_path = filepath
+
+
 
     data = {
         'name': request.form['name'],
@@ -51,7 +56,7 @@ def create_rescue():
         'size': request.form['size'],
         'fixed': request.form['fixed'],
         'type': request.form['type'],
-        'image_path': filepath,
+        'image_path': image_path,
         'user_id': session['login_id'] # Assuming user_id is stored in session
     }
 
@@ -74,7 +79,7 @@ def edit_rescues(id):
 def update_rescues():
     if 'login_id' not in session:
         return redirect(url_for('home'))
-    val_rescue = validate_rescue(request.form)
+    val_rescue = Rescue.validate_rescue(request.form)
 
     if not val_rescue:
         return redirect(f"/api/v1/rescues/edit/{request.form['id']}")

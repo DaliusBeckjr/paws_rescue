@@ -44,7 +44,7 @@ The database consists of three main tables: `users`, `rescues`, and `likes`.
 - **Likes Table**: Stores likes by users for rescue animals.
   - Columns: `user_id`, `rescue_id`.
 
-![Database Design](./db_design_rescues.png)  <!-- Add the path to your ERD image here -->
+![Database Design](./project/db_design_rescues.png)  <!-- Add the path to your ERD image here -->
 
 ### Installation:
 1. Clone the repository:

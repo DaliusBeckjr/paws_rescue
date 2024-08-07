@@ -2,7 +2,6 @@ from flask_app import app, bcrypt
 from flask import render_template, redirect, session, request, url_for
 from flask_app.models.user import User
 from flask_app.models.rescue import Rescue
-from flask_app.validations.users_val import validate_login, validate_register
 
 @app.route('/')
 def home():

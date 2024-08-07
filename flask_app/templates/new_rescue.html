@@ -8,7 +8,7 @@
 
 <section class="section">
     <div class="container">
-        Register New Rescue
+       <p class="has-text-weight-bold has-text-centered is-size-3">Register New Rescue</p>
 
         <form action="{{ url_for('create_rescue') }}" method="post" enctype="multipart/form-data">
             <div class="field">
@@ -17,11 +17,11 @@
             </div>
             <div class="field">
                 <label class="label">Description:</label>
-                <textarea class="textarea is-small" placeholder="e.g. Hello world" name="description"></textarea>
+                <textarea class="textarea " placeholder="Input rescues description" name="description"></textarea>
             </div>
             <div class="field">
                 <label class="label">Breed:</label>
-                <input type="text" name="breed" class="input" placeholder="Input pets Breed">
+                <input type="text" name="breed" class="input" placeholder="Input rescues Breed">
             </div>
             <div class="field">
                 <label class="label">Address:</label>
@@ -86,7 +86,7 @@
             </div>
             <div class="file has-name">
                 <label class="file-label">
-                    <input class="file-input" type="file" id="file-input" name="image_path" accept="image/png, image/jpeg"/>
+                    <input class="file-input" type="file" id="file-input" name="image" accept="image/png, image/jpeg"/>
                     <span class="file-cta">
                         <span class="file-icon">
                             <i class="fas fa-upload"></i>
@@ -97,7 +97,7 @@
                 </label>
                 <input type="hidden" name="user_id" value="{{session['login_id']}}">
             </div>
-            <button class="button" type="submit">Submit</button>
+            <button class="button is-primary" type="submit">Submit</button>
         </form>
     </div>
 </section>
