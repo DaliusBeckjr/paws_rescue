@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} dashboard | Paws Rescue {% endblock %}
+{% block title %} Dashboard | Paws Rescue {% endblock %}
 
 {% block body %}
 
@@ -8,20 +8,26 @@
 
 <section class="section">
     <div class="container">
-        <p class="is-size-3
-            has-text-centered 
-            has-text-weight-bold">
-            welcome to the dashboard
+        <p class="is-size-3 has-text-centered has-text-weight-bold">
+            Welcome to the dashboard
         </p>
 
         {% for one_rescue in all_rescues %}
-            <p>{{ one_rescue.name }}</p>
-            <p>{{ one_rescue.description }}</p>
+        <a href="{{ url_for('show_rescue', id=one_rescue.id) }}" class="card-link">
+            <div class="card">
+                <div class="card-image">
+                    <figure class="image-container">
+                        <img src="{{ url_for('static', filename=one_rescue.image_path) }}" alt="{{ one_rescue.name }}">
+                    </figure>
+                </div>
+                <p class="card-title">{{ one_rescue.name }}</p>
+                <p class="card-description">{{ one_rescue.description }}</p>
+            </div>
+        </a>
         {% endfor %}
     </div>
 </section>
 
 {% include 'components/footer.html' %}
-
 
 {% endblock %}

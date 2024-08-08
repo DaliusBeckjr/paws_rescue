@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} New Rescue | Paws and Rescue{% endblock %}
+
+{% block body %}
+
+{% include 'components/navbar.html' %}
+
+<section class="section">
+    <div class="container">
+        welcome to show page
+
+        <form action="{{ url_for('delete_rescue') }}" method="post">
+            <input type="hidden" name="id" value="{{ one_rescue.id }}">
+            <button type="submit" class="button is-link">Delete</button>
+        </form>
+    </div>
+</section>
+
+{% include 'components/footer.html' %}
+
+{% endblock body %}
