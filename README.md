@@ -1,5 +1,9 @@
 # Paws and Rescue
 
+
+[Watch the showcase video on YouTube](https://youtu.be/o6i1RZCuQo4)
+
+
 ## Description:
 Paws and Rescue is a web application designed to help users manage rescue animals. It provides a platform to create, view, and manage rescue animal profiles. The application uses Python with the Flask framework for the backend, MySQL for the database, and Bulma.io for the front-end styling. Future plans include expanding this to a full-stack project with a frontend framework.
 
