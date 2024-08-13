@@ -9,9 +9,14 @@
     </div>
     <div class="navbar-end">
         <a href="{{ url_for('dashboard') }}" class="navbar-item">
+            <span class="icon mr-1">
+                <i class="fas fa-home"></i> <!-- Font Awesome icon -->
+            </span>
             Home
         </a>
-        <a href="{{ url_for('new_rescue') }}" class="navbar-item">Register Rescue</a>
+        <a href="{{ url_for('new_rescue') }}" class="navbar-item">
+            Register Rescue
+        </a>
         <a href="{{ url_for('logout') }}" class="navbar-item"> Logout </a>
     </div>
 </nav>

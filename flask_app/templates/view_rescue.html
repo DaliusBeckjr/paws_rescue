@@ -6,14 +6,48 @@
 
 {% include 'components/navbar.html' %}
 
+
+<section class="hero">
+    <p class="title ml-6"> Meet {{ one_rescue.name }}</p>
+</section>
+
 <section class="section">
     <div class="container">
-        welcome to show page
 
-        <form action="{{ url_for('delete_rescue') }}" method="post">
-            <input type="hidden" name="id" value="{{ one_rescue.id }}">
-            <button type="submit" class="button is-link">Delete</button>
-        </form>
+
+        <p>
+            {{ one_rescue.age }}
+        </p>
+
+        {% if one_rescue.gender == 1 %}
+            <p>Male</p>
+        {% else: %}
+            <p>Female</p>
+        {% endif %}
+
+        {% if one_rescue.size == 1 %}
+            <p>Small</p>
+        {% elif one_rescue.size == 2 %}
+            <p>Medium</p>
+        {% else %}
+            <p>Large</p>
+        {% endif %}
+
+
+        <p>{{ one_rescue.description }}</p>
+
+
+        {% if session['login_id'] == one_rescue.user_id %}
+        <div class="is-flex">
+
+            <form action="{{ url_for('delete_rescue') }}" method="post" class="m-4">
+                <input type="hidden" name="id" value="{{ one_rescue.id }}">
+                <button type="submit" class="button is-link">Delete</button>
+            </form>
+    
+            <a href="{{ url_for('edit_rescues', id=one_rescue.id) }}" class="button is-link m-4" > Edit</a>
+        </div>
+        {% endif %}
     </div>
 </section>
 

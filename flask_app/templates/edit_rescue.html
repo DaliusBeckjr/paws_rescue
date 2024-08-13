@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Edit Rescue | Paws and Rescue{% endblock %}
+{% block title %} New Rescue | Paws and Rescue{% endblock %}
 
 {% block body %}
 
@@ -8,47 +8,55 @@
 
 <section class="section">
     <div class="container">
-        <p class="has-text-weight-bold has-text-centered is-size-3">Edit Rescue</p>
+        <p class="has-text-weight-bold has-text-centered is-size-3">Register New Rescue</p>
 
-        <form action="{{ url_for('edit_rescues', id=one_rescue.id) }}" method="post" enctype="multipart/form-data">
+        <form action="{{ url_for('update_rescues') }}" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="{{ one_rescue.id }}">
 
-            {% with messages = get_flashed_messages(category_filter=['rescue']) %}
-                {% if messages %}
-                    {% for message in messages %}
-                        <p class="has-text-danger">{{ message }}</p>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-
+            {% with messages = get_flashed_messages(category_filter=['rescue']) %}     <!-- declare a variable called messages -->
+                    {% if messages %}                            <!-- check if there are any messages -->
+                        {% for message in messages %}            <!-- loop through the messages -->
+                            <p class="has-text-danger">{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
             <div class="field">
                 <label class="label">Name:</label>
                 <input type="text" class="input" name="name" placeholder="Input Name" value="{{ one_rescue.name }}">
             </div>
             <div class="field">
                 <label class="label">Description:</label>
-                <textarea class="textarea" placeholder="Input rescue description" name="description">{{ one_rescue.description }}</textarea>
+                <textarea class="textarea " placeholder="Input rescues description" name="description">{{ one_rescue.description }}</textarea>
             </div>
             <div class="field">
                 <label class="label">Breed:</label>
-                <input type="text" name="breed" class="input" placeholder="Input rescue Breed" value="{{ one_rescue.breed }}">
+                <input type="text" name="breed" class="input" placeholder="Input rescues Breed" value="{{ one_rescue.breed }}">
             </div>
             <div class="field">
                 <label class="label">Address:</label>
                 <input type="text" class="input" name="location" placeholder="Input Address" value="{{ one_rescue.location }}">
             </div>
             <div class="field">
-                <label class="label">Age:</label>
-                <input type="number" name="age" placeholder="Input Age" min="1" value="{{ one_rescue.age }}">
+                <label class="label">Age</label>
+                <input type="number" name="age" placeholder="Input Age" min="1" value="{{ one_rescue.age }}"> 
             </div>
             <div class="field">
                 <label class="label">Gender:</label>
                 <div class="control">
                     <label class="radio">
-                        <input type="radio" name="gender" value="1" {% if one_rescue.gender == 1 %} checked {% endif %}>
+                        <input type="radio" name="gender" value="1" 
+                        {% if one_rescue.gender == 1 %}
+                            checked
+                        {% endif %}
+                        />
                         Male
                     </label>
                     <label class="radio">
-                        <input type="radio" name="gender" value="2" {% if one_rescue.gender == 2 %} checked {% endif %}>
+                        <input type="radio" name="gender" value="2" 
+                        {% if one_rescue.gender == 2 %}
+                            checked
+                        {% endif %}
+                        />
                         Female
                     </label>
                 </div>
@@ -57,15 +65,27 @@
                 <label class="label">Size:</label>
                 <div class="control">
                     <label class="radio">
-                        <input type="radio" name="size" value="1" {% if one_rescue.size == 1 %} checked {% endif %}>
+                        <input type="radio" name="size" value="1" 
+                        {% if one_rescue.size == 1 %}
+                            checked
+                        {% endif %}
+                        />
                         Small
                     </label>
                     <label class="radio">
-                        <input type="radio" name="size" value="2" {% if one_rescue.size == 2 %} checked {% endif %}>
+                        <input type="radio" name="size" value="2" 
+                        {% if one_rescue.size == 2 %}
+                            checked
+                        {% endif %}
+                        />
                         Medium
                     </label>
                     <label class="radio">
-                        <input type="radio" name="size" value="3" {% if one_rescue.size == 3 %} checked {% endif %}>
+                        <input type="radio" name="size" value="3" 
+                        {% if one_rescue.size == 3 %}
+                            checked
+                        {% endif %}
+                        />
                         Large
                     </label>
                 </div>
@@ -74,11 +94,19 @@
                 <label class="label">Fixed:</label>
                 <div class="control">
                     <label class="radio">
-                        <input type="radio" name="fixed" value="1" {% if one_rescue.fixed == 1 %} checked {% endif %}>
+                        <input type="radio" name="fixed" value="1"
+                        {% if one_rescue.fixed == 1 %}
+                            checked
+                        {% endif %}
+                        />
                         Yes
                     </label>
                     <label class="radio">
-                        <input type="radio" name="fixed" value="2" {% if one_rescue.fixed == 2 %} checked {% endif %}>
+                        <input type="radio" name="fixed" value="2" 
+                        {% if one_rescue.fixed == 2 %}
+                            checked
+                        {% endif %}
+                        />
                         No
                     </label>
                 </div>
@@ -87,25 +115,38 @@
                 <label class="label">Type Of Animal:</label>
                 <div class="select">
                     <select name="type">
-                        <option value="1" {% if one_rescue.type == 1 %} selected {% endif %}>Dog</option>
-                        <option value="2" {% if one_rescue.type == 2 %} selected {% endif %}>Cat</option>
-                        <option value="3" {% if one_rescue.type == 3 %} selected {% endif %}>Other</option>
+                        <option value="1" 
+                        {% if one_rescue.type == 1 %}
+                            selected
+                        {% endif %}
+                        >Dog</option>
+                        <option value="2"
+                        {% if one_rescue.type == 2 %}
+                            selected
+                        {% endif %}
+                        >Cat</option>
+                        <option value="3"
+                        {% if one_rescue.type == 3 %}
+                            selected
+                        {% endif %}
+                        >Other</option>
                     </select>
                 </div>
             </div>
+
+            <input type="hidden" name="existing_image_path" value="{{ one_rescue.image_path }}">
             <div class="file has-name">
                 <label class="file-label">
-                    <input class="file-input" type="file" id="file-input" name="image" accept="image/png, image/jpeg"/>
+                    <input class="file-input" type="file" id="file-input" name="file" accept="image/png, image/jpeg, image/jpg"/>
                     <span class="file-cta">
                         <span class="file-icon">
                             <i class="fas fa-upload"></i>
                         </span>
-                        <span class="file-label">Choose a file…</span>
+                        <span class="file-label"> Choose a file… </span>
                     </span>
-                    <span class="file-name" id="file-name">No file selected</span>
+                    <span class="file-name" id="file-name"> No file selected</span>
                 </label>
-                <input type="hidden" name="user_id" value="{{ session['login_id'] }}">
-                <input type="hidden" name="current_image_path" value="{{ one_rescue.image_path }}">
+                <input type="hidden" name="user_id" value="{{session['login_id']}}">
             </div>
             <button class="button is-primary" type="submit">Submit</button>
         </form>

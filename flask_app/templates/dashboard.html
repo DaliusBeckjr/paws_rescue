@@ -6,27 +6,51 @@
 
 {% include 'components/navbar.html' %}
 
-<section class="section">
-    <div class="container">
-        <p class="is-size-3 has-text-centered has-text-weight-bold">
-            Welcome to the dashboard
-        </p>
 
-        {% for one_rescue in all_rescues %}
-        <a href="{{ url_for('show_rescue', id=one_rescue.id) }}" class="card-link">
-            <div class="card">
-                <div class="card-image">
-                    <figure class="image-container">
-                        <img src="{{ url_for('static', filename=one_rescue.image_path) }}" alt="{{ one_rescue.name }}">
-                    </figure>
-                </div>
-                <p class="card-title">{{ one_rescue.name }}</p>
-                <p class="card-description">{{ one_rescue.description }}</p>
-            </div>
-        </a>
-        {% endfor %}
+<section class="hero">
+    <div class="hero-body">
+        <p class="title has-text-centered">Pets Available For Adoption</p>
     </div>
 </section>
+
+<section class="section">
+    <div class="container">
+        <div class="columns is-multiline">
+            {% for one_rescue in all_rescues %}
+            <div class="column is-3">
+                <a href="{{ url_for('show_rescue', id=one_rescue.id) }}">
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image">
+                                <img src="{{ url_for('static', filename=one_rescue.image_path) }}" alt="{{ one_rescue.name }}" class="custom-img">
+                            </figure>
+                        </div> <!-- left side -->
+                        <div class="card-content">
+                            <p class="card-title is-size-3 has-font-weight-semibold has-text-centered">{{ one_rescue.name }}</p>
+                        </div>
+
+
+                        <!-- now we have to create an if statement for the button if liked or not liked(default) show button is-primary if liked else show button is-link so will have to add some stuff to the dashboard route -->
+                        <footer class="card-footer">
+                            <div class="card-footer-item has-text-centered">
+                                <form action="#" method="post">
+                                    <button type="submit" class="button is-rounded is-link">
+                                        <span class="icon is-size-4 ">
+                                            <i class="fa-regular fa-heart"></i>
+                                        </span>
+                                    </button>
+                                </form>
+                            </div>
+                        </footer>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
 
 {% include 'components/footer.html' %}
 
