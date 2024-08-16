@@ -34,7 +34,7 @@ class Like:
         query = """
         SELECT * from rescues
         JOIN likes ON rescues.id = likes.rescue_id
-        WHERE likes.uer_id = &(user_id)s
+        WHERE likes.user_id = %(user_id)s
         """
         results = connectToMySQL(cls.db).query_db(query, data)
         rescues = []

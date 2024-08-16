@@ -1,5 +1,6 @@
 from flask_app.models.user import User
 from flask_app.models.rescue import Rescue
+from flask_app.models.like import Like
 from flask_app.helpers.file_handle import allowed_files, save_image
 from flask import render_template, session, request, redirect, url_for
 from flask_app import app
@@ -13,7 +14,17 @@ def dashboard():
     data = {
         'id': session['login_id']
     }
-    return render_template('dashboard.html', all_rescues=Rescue.get_all_rescues(), one_user=User.get_user_by_id(data))
+    
+    all_rescues = Rescue.get_all_rescues()
+
+    for rescue in all_rescues:
+        rescue.liked= Like.check_if_liked({
+            'user_id': session['login_id'],
+            'rescue_id': rescue.id
+        })
+
+
+    return render_template('dashboard.html', all_rescues=all_rescues, one_user=User.get_user_by_id(data))
 
 
 

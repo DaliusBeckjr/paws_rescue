@@ -19,7 +19,7 @@
             {% for one_rescue in all_rescues %}
                 <!-- Use `column` class with `is-one-third` to ensure three columns per row -->
                 <div class="column is-one-third">
-                    <a href="{{ url_for('show_rescue', id=one_rescue.id) }}" class="card box">
+                    <a href="{{ url_for('show_rescue', id = one_rescue.id) }}" class="card box">
                         <div class="card-image">
                             <figure class="image">
                                 <img src="{{ url_for('static', filename=one_rescue.image_path) }}" alt="{{ one_rescue.name }}">
@@ -30,13 +30,27 @@
                         </div>
                         <footer class="card-footer">
                             <div class="card-footer-item has-text-centered">
-                                <form action="#" method="post">
-                                    <button type="submit" class="button is-rounded is-link">
-                                        <span class="icon is-size-4 ">
-                                            <i class="fa-regular fa-heart"></i>
-                                        </span>
-                                    </button>
-                                </form>
+                                
+
+                                {% if one_rescue.liked %}
+                                    <!-- If user liked the rescue -->
+                                    <form action="{{ url_for('user_unliked_rescue', rescue_id=one_rescue.id) }}" method="post">
+                                        <button type="submit" class="button is-rounded is-primary">
+                                            <span class="icon is-size-4">
+                                                <i class="fa-solid fa-heart"></i> <!-- Filled heart for liked -->
+                                            </span>
+                                        </button>
+                                    </form>
+                                {% else %}
+                                    <!-- If user has not liked the rescue -->
+                                    <form action="{{ url_for('user_liked_rescue', rescue_id=one_rescue.id) }}" method="post">
+                                        <button type="submit" class="button is-rounded is-link">
+                                            <span class="icon is-size-4">
+                                                <i class="fa-regular fa-heart"></i> <!-- Outline heart for not liked -->
+                                            </span>
+                                        </button>
+                                    </form>
+                                {% endif %}
                             </div>
                         </footer>
                     </a>
