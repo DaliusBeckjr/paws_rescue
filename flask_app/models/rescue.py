@@ -22,6 +22,27 @@ class Rescue:
         self.user_id = data['user_id']
         self.owner = None  # Class association
 
+    def to_json(self):
+        # when working with api. 
+        # Convert the Rescue and owner (user) data to a dictionary
+        return {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "breed": self.breed,
+            "location": self.location,
+            "age": self.age,
+            "gender": self.gender,
+            "size": self.size,
+            "fixed": self.fixed,
+            "type" : self.type,
+            "image_path": self.image_path,
+            "createdAt": self.created_at,
+            "updatedAt":self.updated_at,
+            "user_id": self.user_id,
+            "owner" : self.owner.to_json() if self.owner else None
+        }
+
     @classmethod 
     def create_rescue(cls, data):
         query = """ 
